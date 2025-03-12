@@ -1,13 +1,31 @@
+package org.Testing.API;
+
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import org.testng.Assert;
+import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class MyTest {
+public class TestAPI {
+
     @Test
-    public void testStatusCode() {
-        Response response = RestAssured.get("https://jsonplaceholder.typicode.com/posts/1");
-        int statusCode = response.getStatusCode();
-        Assert.assertEquals(statusCode, 200);
+    public void test_positive() {
+        RestAssured
+                .given().queryParam("2")
+                .when().get("https://reqres.in/api/login")
+                .then().log().all()
+                .and().assertThat().statusCode(200)
+                .and().assertThat().header("Content-Type", "application/json; charset=utf-8")
+                .and().assertThat().body("data", Matchers.notNullValue());
     }
+
+    @Test
+    public void test_negative() {
+        RestAssured
+                .given().contentType("application/json")
+                .when().post("https://reqres.in/api/login")
+                .then().log().all()
+                .and().assertThat().statusCode(400)
+                .and().assertThat().header("Content-Type", "application/json; charset=utf-8")
+                .and().assertThat().body("error", Matchers.equalTo("Missing email or username"));
+    }
+
 }    
