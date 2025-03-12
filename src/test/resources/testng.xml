@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="REST_Assured_Test_Suite">
+    <test name="REST_Assured_Test">
+        <classes>
+            <!-- 包含 TestAPI 类中的所有测试方法 -->
+            <class name="org.Testing.API.TestAPI"/>
+            <!-- 如果还有其他测试类，可以在这里添加 -->
+            <!-- <class name="org.Testing.Web.AppTest"/> -->
+        </classes>
+    </test>
+</suite>
